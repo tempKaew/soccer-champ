@@ -13,12 +13,14 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
   const rexName = event.message.text.match(/ทายผล (\S+) ชนะ/)
   let teamName = rexName?.length ? rexName[1] : ''
   const team = await getTeamByName(teamName)
-
+  console.log('team',team)
   const match = team ?  await existMatchToday(team?.id) : null
   const matchId = match ? match.id : null
 
   const date = new Date();
   let current = new Date(date.getTime() + (7*60*60*1000));
+  console.log(current)
+  console.log(match)
 
   if (
     match
