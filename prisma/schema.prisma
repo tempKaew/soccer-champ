@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model groups {
+  id            BigInt       @id @default(autoincrement())
+  line_group_id String       @unique @db.VarChar(50)
+  name          String       @db.VarChar(50)
+  image         String?      @db.Text
+  joined        Boolean      @default(true) @db.Boolean
+  created_at    DateTime     @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?    @db.Timestamp(0)
+  joiner        joiner[]
+  line_users    line_users[]
+}
+
+model joiner {
+  id             BigInt      @id @default(autoincrement())
+  line_user_id   BigInt?
+  group_id       BigInt?
+  team_winner_id BigInt?
+  match_id       BigInt?
+  point          BigInt?
+  created_at     DateTime    @default(now()) @db.Timestamp(0)
+  updated_at     DateTime?   @db.Timestamp(0)
+  match          match?      @relation(fields: [match_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_match_id_foreign")
+  groups         groups?     @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_group_id_foreign")
+  line_users     line_users? @relation(fields: [line_user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_line_user_id_foreign")
+  teams          teams?      @relation(fields: [team_winner_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_team_winner_id_foreign")
+}
+
+model line_users {
+  id           BigInt    @id @default(autoincrement())
+  name         String    @db.VarChar(50)
+  group_id     BigInt?
+  line_user_id String    @unique @db.VarChar(50)
+  image        String?   @db.Text
+  created_at   DateTime  @default(now()) @db.Timestamp(0)
+  updated_at   DateTime? @db.Timestamp(0)
+  groups       groups?   @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_group_id_foreign")
+  joiner       joiner[]
+
+  @@index([line_user_id], map: "users_line_user_id")
+}
+
+model match {
+  id                                 BigInt    @id @default(autoincrement())
+  team_home_id                       BigInt?
+  team_visitor_id                    BigInt?
+  date_time_kickoff                  DateTime? @db.Timestamp(0)
+  channel_live                       String?   @db.VarChar(50)
+  created_at                         DateTime  @default(now()) @db.Timestamp(0)
+  updated_at                         DateTime? @db.Timestamp(0)
+  teams_match_team_home_idToteams    teams?    @relation("match_team_home_idToteams", fields: [team_home_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_team_home_id_foreign")
+  teams_match_team_visitor_idToteams teams?    @relation("match_team_visitor_idToteams", fields: [team_visitor_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_team_visitor_id_foreign")
+  joiner                             joiner[]
+}
+
+model teams {
+  id                                 BigInt    @id @default(autoincrement())
+  image                              String    @db.VarChar(50)
+  name                               String    @db.VarChar(50)
+  created_at                         DateTime  @default(now()) @db.Timestamp(0)
+  updated_at                         DateTime? @db.Timestamp(0)
+  joiner                             joiner[]
+  match_match_team_home_idToteams    match[]   @relation("match_team_home_idToteams")
+  match_match_team_visitor_idToteams match[]   @relation("match_team_visitor_idToteams")
+
+  @@index([name], map: "teams_name")
+}
