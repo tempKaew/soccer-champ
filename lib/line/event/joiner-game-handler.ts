@@ -77,7 +77,7 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
     const { replyToken } = event;
     const response: TextMessage = {
       type: 'text',
-      text: 'คุณส่งคำตอบแล้ว'
+      text: 'คุณ ' + user?.name + ' ส่งคำตอบแล้ว'
     };
     await client.replyMessage(replyToken, response);
     return;
@@ -94,7 +94,7 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
       const { replyToken } = event;
       const response: TextMessage = {
         type: 'text',
-        text: 'รับข้อมูลเรียบร้อย'
+        text: 'รับข้อมูล ' + user?.name + ' เรียบร้อย'
       };
       await client.replyMessage(replyToken, response);
       return;
