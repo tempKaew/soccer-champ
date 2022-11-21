@@ -5,6 +5,7 @@ import joinGroupHandler from "../../../lib/line/event/join-group-handler";
 import matchStart from "../../../lib/line/event/match-start";
 import leaveGroupHandler from "../../../lib/line/event/leave-group-handler";
 import joinerGameHandler from "../../../lib/line/event/joiner-game-handler";
+import pushTableEvent from "../../../lib/line/event/push-table-event";
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -70,6 +71,10 @@ export default async function handler(
           // await textEventHandler(event);
           if (event.message.text == 'ทายผลบอล') {
             await matchStart(event);
+          }
+          else if (event.message.text == 'สรุปตารางอันดับ' && event.source.type === 'group') {
+            const lineGroupId = event.source.groupId;
+            await pushTableEvent(null,lineGroupId)
           }
           else if((/ทายผล (\S+) ชนะ/).test(event.message.text)) {
             await joinerGameHandler(event);

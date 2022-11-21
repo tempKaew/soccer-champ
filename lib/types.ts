@@ -1,11 +1,6 @@
-import { type } from "os";
-
-export type responseUser = {
-  id?: string;
-  createdAt?: number | null;
-};
-
-export type responseGroupCreate = {
-  id: number;
-  createdAt: string;
+export type userPoint = {
+  id: bigint | null,
+  point: string,
+  name: string | undefined,
+  image: string | null | undefined
 }

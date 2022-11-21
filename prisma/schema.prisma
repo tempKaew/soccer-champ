@@ -25,7 +25,7 @@ model joiner {
   group_id       BigInt?
   team_winner_id BigInt?
   match_id       BigInt?
-  point          BigInt?
+  point          Int?        @default(0)
   created_at     DateTime    @default(now()) @db.Timestamp(0)
   updated_at     DateTime?   @db.Timestamp(0)
   match          match?      @relation(fields: [match_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_match_id_foreign")
@@ -51,9 +51,13 @@ model line_users {
 model match {
   id                                 BigInt    @id @default(autoincrement())
   team_home_id                       BigInt?
+  team_home_score                    Int?
   team_visitor_id                    BigInt?
+  team_visitor_score                 Int?
   date_time_kickoff                  DateTime? @db.Timestamp(0)
   channel_live                       String?   @db.VarChar(50)
+  match_end                          Boolean   @default(false) @db.Boolean
+  point_mapped                       Boolean   @default(false) @db.Boolean
   created_at                         DateTime  @default(now()) @db.Timestamp(0)
   updated_at                         DateTime? @db.Timestamp(0)
   teams_match_team_home_idToteams    teams?    @relation("match_team_home_idToteams", fields: [team_home_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_team_home_id_foreign")

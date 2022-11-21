@@ -29,10 +29,10 @@ export const createLineUser = async(lineUserId:string, lineName:string, groupId:
   })
 }
 
-export const getGroupById = async(groupId:string) => {
+export const getGroupById = async(lineGroupId:string) => {
   return prisma.groups.findFirst({
     where: {
-      line_group_id: groupId
+      line_group_id: lineGroupId
     }
   })
 }
