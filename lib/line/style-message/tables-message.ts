@@ -10,12 +10,12 @@ const tableMessage = (tables:(userPoint)[]):FlexContainer => {
       "contents": [
         {
           "type": "icon",
-          "url": t.image ?? '',
+          "url": t.image ?? process.env.SITE_URL + "/images/icons/blank-profile.png",
           "size": "20px"
         },
         {
           "type": "text",
-          "text": t.name ?? '',
+          "text": t.name ?? 'name',
           "weight": "bold",
           "margin": "sm",
           "flex": 0,

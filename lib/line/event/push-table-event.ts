@@ -1,4 +1,4 @@
-import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
+import { FlexMessage } from '@line/bot-sdk';
 import { prisma } from "../../../lib/prisma"
 import client from "../../../lib/line/client";
 import tableMessage from "../../../lib/line/style-message/tables-message";
@@ -61,7 +61,7 @@ const pushTableEvent = async (
 
   const pushTable: FlexMessage = {
     type: 'flex',
-    altText: 'rule',
+    altText: 'tables',
     contents: tableMessage(tableMapped)
   }
   await client.pushMessage(lineGroupId, pushTable);
