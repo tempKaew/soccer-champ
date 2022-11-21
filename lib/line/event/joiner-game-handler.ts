@@ -68,7 +68,8 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
   const existJoin = await prisma?.joiner.findFirst({
     where: {
       line_user_id: user?.id,
-      group_id: group?.id
+      group_id: group?.id,
+      match_id: matchId
     }
   })
 
