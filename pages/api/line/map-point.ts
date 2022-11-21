@@ -16,7 +16,7 @@ export default async function handler(
 
     if (match.team_home_score !== null && match.team_visitor_score  !== null) {
       var teamWinnerId = null;
-      var pointCollect = 0;
+      var pointCollect = 1;
       if (match.team_home_score > match.team_visitor_score) {
         teamWinnerId = match.team_home_id
         pointCollect = 3
