@@ -91,7 +91,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
                 },
                 {
                   "type": "text",
-                  "text": match.dateKickoff ? match.dateKickoff?.toString() : '',
+                  "text": match.dateKickoff ? match.dateKickoff?.toString().replace(/T/, ' ').replace(/\..+/, '').replace(/:00/, '') : '',
                   "flex": 6,
                   "color": "#666666",
                   "size": "xs",
