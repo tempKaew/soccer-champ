@@ -30,6 +30,9 @@ const pushTableEvent = async (
     _sum: {
       point: true,
     },
+    _count: {
+      point: true,
+    },
     orderBy: {
       _sum: {
         point: 'desc',
@@ -53,7 +56,8 @@ const pushTableEvent = async (
     let user = users.find(u => u.id === table.line_user_id);
     return {
       'id': table.line_user_id,
-      'point': table._sum.point + 'pt',
+      'point': table._sum.point?.toString() ?? '',
+      'match': table._count.point?.toString() ?? '',
       'name': user?.name,
       'image': user?.image
     }

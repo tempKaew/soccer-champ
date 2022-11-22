@@ -3,7 +3,7 @@ import { userPoint } from "../../types";
 
 const tableMessage = (tables:(userPoint)[]):FlexContainer => {
 
-  const positionBox:(FlexComponent)[] = tables.map((t) => {
+  var positionBox:(FlexComponent)[] = tables.map((t) => {
     return {
       "type": "box",
       "layout": "baseline",
@@ -18,19 +18,69 @@ const tableMessage = (tables:(userPoint)[]):FlexContainer => {
           "text": t.name ?? 'name',
           "weight": "bold",
           "margin": "sm",
-          "flex": 0,
-          "size": "sm"
+          "flex": 3,
+          "size": "xxs",
+        },
+        {
+          "type": "text",
+          "text": t.match,
+          "size": "sm",
+          "align": "end",
+          "color": "#aaaaaa",
+          "flex": 1
         },
         {
           "type": "text",
           "text": t.point,
           "size": "sm",
           "align": "end",
-          "color": "#aaaaaa"
+          "color": "#aaaaaa",
+          "flex": 1
         }
       ]
     }
   })
+
+  // add header table
+  positionBox.unshift(
+    {
+      "type": "box",
+      "layout": "baseline",
+      "contents": [
+        {
+          "type": "text",
+          "weight": "bold",
+          "margin": "lg",
+          "flex": 0,
+          "size": "xxs",
+          "text": "#",
+          "color": "#cccccc"
+        },
+        {
+          "type": "text",
+          "text": 'name',
+          "weight": "bold",
+          "margin": "sm",
+          "flex": 3,
+          "size": "sm"
+        },
+        {
+          "type": "text",
+          "text": 'p',
+          "size": "sm",
+          "align": "end",
+          "flex": 1
+        },
+        {
+          "type": "text",
+          "text": 'pts',
+          "size": "sm",
+          "align": "end",
+          "flex": 1
+        }
+      ]
+    }
+  )
 
   return {
     "type": "bubble",
