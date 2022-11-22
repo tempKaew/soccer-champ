@@ -159,7 +159,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
 
   return {
     "type": "bubble",
-    "size": "kilo",
+    "size": "giga",
     "hero": {
       "type": "box",
       "layout": "baseline",
