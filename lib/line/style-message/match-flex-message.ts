@@ -1,104 +1,143 @@
-import { FlexContainer } from "@line/bot-sdk";
+import { FlexComponent, FlexContainer } from "@line/bot-sdk";
+import { typeMatchFlex } from "../../types";
 
-const matchFlexMessage = ({
-  teamHomeName,
-  teamHomeImage,
-  teamVisitorName,
-  teamVisitorImage,
-  dateKickoff,
-  channel
-}:any):FlexContainer => ({
-  "type": "bubble",
-  "size": "kilo",
-  "hero": {
-    "type": "box",
-    "layout": "baseline",
-    "contents": [
-      {
-        "type": "text",
-        "text": "มาทายผลบอลกันเถอะ",
-        "size": "xl",
-        "weight": "bold",
-        "margin": "10px",
-        "color": "#ffffff"
-      }
-    ],
-    "justifyContent": "center",
-    "paddingAll": "12px"
-  },
-  "body": {
+const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
+
+  var mapContainerMatch:(FlexComponent)[] = matches.map( match => {
+    return {
+      "type": "box",
+      "layout": "vertical",
+      "contents": [
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "image",
+              "url": process.env.SITE_URL + "/images/teams/" + match.teamHomeImage,
+              "align": "center",
+              "size": "60px"
+            },
+            {
+              "type": "image",
+              "url": process.env.SITE_URL + "/images/teams/" + match.teamVisitorImage,
+              "align": "center",
+              "size": "60px"
+            }
+          ],
+          "justifyContent": "space-between",
+          "alignItems": "center",
+          "spacing": "none",
+          "margin": "none",
+          "paddingTop": "5px"
+        },
+        {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "message",
+                "label": "England",
+                "text": "ทายผล " + match.teamHomeName + " ชนะ"
+              },
+              "style": "secondary",
+              "height": "sm"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "message",
+                "label": "เสมอ",
+                "text": "ทายผล " + match.teamHomeName + " เสมอ"
+              },
+              "style": "primary",
+              "height": "sm",
+              "margin": "4px",
+              "gravity": "center"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "message",
+                "label": "England",
+                "text": "ทายผล " + match.teamVisitorName + " ชนะ"
+              },
+              "style": "secondary",
+              "height": "sm",
+              "margin": "4px"
+            }
+          ],
+          "justifyContent": "center",
+          "alignItems": "center",
+          "paddingStart": "5px",
+          "paddingEnd": "5px"
+        },
+        {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "baseline",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "Kick off",
+                  "size": "xs",
+                  "color": "#aaaaaa",
+                  "flex": 3
+                },
+                {
+                  "type": "text",
+                  "text": match.dateKickoff,
+                  "flex": 6,
+                  "color": "#666666",
+                  "size": "xs"
+                }
+              ]
+            },
+            {
+              "type": "box",
+              "layout": "baseline",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "ถ่ายทอดสด",
+                  "size": "xs",
+                  "color": "#aaaaaa",
+                  "flex": 3
+                },
+                {
+                  "type": "text",
+                  "text": match.channel,
+                  "flex": 6,
+                  "color": "#666666",
+                  "size": "xs",
+                  "wrap": true
+                }
+              ]
+            }
+          ],
+          "margin": "5px",
+          "paddingStart": "10px",
+          "paddingEnd": "10px",
+          "paddingBottom": "10px",
+          "paddingTop": "5px"
+        }
+      ],
+      "borderWidth": "1px",
+      "borderColor": "#f5f5f5",
+      "cornerRadius": "5px",
+      "margin": "10px"
+    }
+  })
+
+  mapContainerMatch.push({
     "type": "box",
     "layout": "vertical",
     "contents": [
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "image",
-            "url": process.env.SITE_URL + "/images/teams/"+teamHomeImage,
-            "align": "center"
-          },
-          {
-            "type": "image",
-            "url": process.env.SITE_URL + "/images/teams/"+teamVisitorImage,
-            "align": "center"
-          }
-        ],
-        "justifyContent": "space-between",
-        "alignItems": "center",
-        "spacing": "none",
-        "margin": "none",
-        "paddingAll": "0px"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "baseline",
-            "contents": [
-              {
-                "type": "text",
-                "text": "Kick off",
-                "size": "sm",
-                "color": "#aaaaaa",
-                "flex": 3
-              },
-              {
-                "type": "text",
-                "text": dateKickoff,
-                "flex": 6,
-                "color": "#666666",
-                "size": "sm"
-              }
-            ]
-          },
-          {
-            "type": "box",
-            "layout": "baseline",
-            "contents": [
-              {
-                "type": "text",
-                "text": "ถ่ายทอดสด",
-                "size": "sm",
-                "color": "#aaaaaa",
-                "flex": 3
-              },
-              {
-                "type": "text",
-                "text": channel,
-                "flex": 6,
-                "color": "#666666",
-                "size": "sm",
-                "wrap": true
-              }
-            ]
-          }
-        ],
-        "margin": "5px"
-      },
       {
         "type": "text",
         "text": "ทายผลฟุตบอลเพื่อสะสมคะแนน รับของรางวัล",
@@ -115,44 +154,46 @@ const matchFlexMessage = ({
         "size": "xxs"
       }
     ]
-  },
-  "footer": {
-    "type": "box",
-    "layout": "horizontal",
-    "contents": [
-      {
-        "type": "button",
-        "action": {
-          "type": "message",
-          "label": teamHomeName,
-          "text": "ทายผล "+teamHomeName+' ชนะ'
-        },
-        "flex": 1,
-        "style": "primary",
-        "height": "sm"
-      },
-      {
-        "type": "button",
-        "action": {
-          "type": "message",
-          "label": teamVisitorName,
-          "text": "ทายผล "+teamVisitorName+' ชนะ'
-        },
-        "flex": 1,
-        "style": "secondary",
-        "height": "sm",
-        "margin": "5px"
-      }
-    ]
-  },
-  "styles": {
+  })
+
+  return {
+    "type": "bubble",
+    "size": "kilo",
     "hero": {
-      "backgroundColor": "#1e81b0"
+      "type": "box",
+      "layout": "baseline",
+      "contents": [
+        {
+          "type": "text",
+          "text": "มาทายผลบอลกันเถอะ",
+          "size": "xl",
+          "weight": "bold",
+          "color": "#ffffff",
+          "margin": "10px"
+        }
+      ],
+      "justifyContent": "center",
+      "paddingAll": "12px",
+      "alignItems": "center"
     },
-    "footer": {
-      "backgroundColor": "#f5f5f3"
+    "body": {
+      "type": "box",
+      "layout": "vertical",
+      "contents": mapContainerMatch,
+      "paddingAll": "0px",
+      "paddingStart": "10px",
+      "paddingEnd": "10px",
+      "paddingBottom": "10px"
+    },
+    "styles": {
+      "hero": {
+        "backgroundColor": "#1e81b0"
+      },
+      "footer": {
+        "backgroundColor": "#f5f5f3"
+      }
     }
-  }
-})
+  };
+}
 
 export default matchFlexMessage

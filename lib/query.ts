@@ -85,7 +85,8 @@ export const getMatchToday = async () => {
       date_time_kickoff: {
         gte: startDate,
         lt:  endDate
-      }
+      },
+      match_end: false
     },
     select: {
       channel_live: true,
@@ -130,6 +131,30 @@ export const existMatchToday = async(teamId:bigint) => {
     },
   })
   return matchToday
+}
+
+export const getMatchBeforeMinute = async(minute:number) => {
+  const date = new Date();
+  let startDate = new Date(date.getTime() + (minute*60*1000));
+  let endDate = new Date(date.getTime() + (minute*60*1000));
+
+  const matches = await prisma.match.findMany({
+    where: {
+      date_time_kickoff: {
+        gte: startDate,
+        lt:  endDate
+      }
+    },
+    select: {
+      channel_live: true,
+      team_home_id: true,
+      team_visitor_id: true,
+      date_time_kickoff: true,
+      teams_match_team_home_idToteams: {},
+      teams_match_team_visitor_idToteams: {}
+    }
+  })
+  return matches
 }
 
 export const getActiveGroup = async () => {
