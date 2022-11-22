@@ -91,7 +91,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
                 },
                 {
                   "type": "text",
-                  "text": match.dateKickoff,
+                  "text": match.dateKickoff ? match.dateKickoff?.toString() : '',
                   "flex": 6,
                   "color": "#666666",
                   "size": "xs"
@@ -111,7 +111,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
                 },
                 {
                   "type": "text",
-                  "text": match.channel,
+                  "text": match.channel ?? '',
                   "flex": 6,
                   "color": "#666666",
                   "size": "xs",
