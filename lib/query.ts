@@ -95,6 +95,9 @@ export const getMatchToday = async () => {
       date_time_kickoff: true,
       teams_match_team_home_idToteams: {},
       teams_match_team_visitor_idToteams: {}
+    },
+    orderBy: {
+      date_time_kickoff: 'asc'
     }
   })
   return matchToday
