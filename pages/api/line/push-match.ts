@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { ClientConfig, Client, WebhookEvent, TextMessage, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
+import { ClientConfig, Client, FlexMessage } from '@line/bot-sdk';
 import matchFlexMessage from "../../../lib/line/style-message/match-flex-message";
 import { getActiveGroup, getMatchToday } from "../../../lib/query";
+import { typeMatchFlex } from "../../../lib/types";
 
 const clientConfig: ClientConfig = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
@@ -24,35 +25,26 @@ export default async function handler(
   const matchToday = await getMatchToday()
   const groups = await getActiveGroup();
 
+  const mapMatches:(typeMatchFlex)[] = matchToday.map( match => {
+    return {
+      "teamHomeName": match.teams_match_team_home_idToteams?.name ?? '',
+      "teamHomeImage": match.teams_match_team_home_idToteams?.image ?? '',
+      "teamVisitorName": match.teams_match_team_visitor_idToteams?.name ?? '',
+      "teamVisitorImage": match.teams_match_team_visitor_idToteams?.image ?? '',
+      "dateKickoff": match.date_time_kickoff,
+      "channel": match.channel_live ?? ''
+    }
+  })
+
   console.log(groups);
-  
 
   await Promise.all(groups.map(async(group) => {
-    
-    await Promise.all(matchToday.map(async(match) => {
-
-      let teamHomeName = match.teams_match_team_home_idToteams?.name
-      let teamHomeImage = match.teams_match_team_home_idToteams?.image
-  
-      let teamVisitorName = match.teams_match_team_visitor_idToteams?.name
-      let teamVisitorImage = match.teams_match_team_visitor_idToteams?.image
-  
-      let channel = match.channel_live
-  
-      const response: FlexMessage = {
-        type: 'flex',
-        altText: 'test',
-        contents: matchFlexMessage({
-          teamHomeName,
-          teamHomeImage,
-          teamVisitorName,
-          teamVisitorImage,
-          channel
-        })
-      }
-      await client.pushMessage(group.line_group_id, response);
-      
-    }));
+    const response: FlexMessage = {
+      type: 'flex',
+      altText: 'test',
+      contents: matchFlexMessage(mapMatches)
+    }
+    await client.pushMessage(group.line_group_id, response);
   }));
 
   return res.status(200).json({
