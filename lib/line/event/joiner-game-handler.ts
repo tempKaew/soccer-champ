@@ -11,11 +11,21 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
   const userId = event.source.userId ? event.source.userId : '';
   let userProfile = await client.getGroupMemberProfile(groupId, userId)
 
-  const rexName = event.message.text.match(/ทายผล (\S+) ชนะ/)
-  let teamName = rexName?.length ? rexName[1] : ''
+  const rexName = event.message.text.match(/ทายผล (\S+) (\S+)/)
+  let teamName = rexName?.length ? rexName[1] : null
+  let status = rexName?.length ? rexName[2] : null
+
+  if (
+    teamName===null
+    || status === null
+  ) {
+    return;
+  }
+
   const team = await getTeamByName(teamName)
   const match = team ?  await existMatchToday(team?.id) : null
   const matchId = match ? match.id : null
+  const teamID = (team&&status=='ชนะ') ? team.id : null
 
   const date = new Date();
   let current = new Date(date.getTime() + (7*60*60*1000));
@@ -86,7 +96,7 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
       data: {
         line_user_id: user?.id,
         group_id: group?.id,
-        team_winner_id: team?.id,
+        team_winner_id: teamID,
         match_id: matchId
       }
     })

@@ -39,7 +39,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
               "type": "button",
               "action": {
                 "type": "message",
-                "label": "England",
+                "label": match.teamHomeName ?? "",
                 "text": "ทายผล " + match.teamHomeName + " ชนะ"
               },
               "style": "secondary",
@@ -61,7 +61,7 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
               "type": "button",
               "action": {
                 "type": "message",
-                "label": "England",
+                "label": match.teamVisitorName ?? "",
                 "text": "ทายผล " + match.teamVisitorName + " ชนะ"
               },
               "style": "secondary",

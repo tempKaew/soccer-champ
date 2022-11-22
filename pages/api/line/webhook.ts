@@ -76,7 +76,10 @@ export default async function handler(
             const lineGroupId = event.source.groupId;
             await pushTableEvent(null,lineGroupId)
           }
-          else if((/ทายผล (\S+) ชนะ/).test(event.message.text)) {
+          else if(
+            (/ทายผล (\S+) ชนะ/).test(event.message.text)
+            || (/ทายผล (\S+) เสมอ/).test(event.message.text)
+          ) {
             await joinerGameHandler(event);
           }
         } catch (err: unknown) {
