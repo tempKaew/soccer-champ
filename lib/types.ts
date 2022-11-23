@@ -14,3 +14,19 @@ export type typeMatchFlex = {
   dateKickoff: Date | null,
   channel: string | null,
 }
+
+export type typeMapMatchApi = {
+  status: string | null,
+  home: {
+    id: number | null,
+    name: string | null,
+    goal: number | null,
+    winner:  boolean | null
+  },
+  visitor: {
+    id: number | null,
+    name: string | null,
+    goal: number | null,
+    winner:  boolean | null
+  }
+}

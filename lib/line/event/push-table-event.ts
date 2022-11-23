@@ -1,20 +1,22 @@
-import { FlexMessage } from '@line/bot-sdk';
+import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
 import { prisma } from "../../../lib/prisma"
-import client from "../../../lib/line/client";
+import client from '../client';
 import tableMessage from "../../../lib/line/style-message/tables-message";
 import { userPoint } from "../../../lib/types";
 import { getGroupById } from '../../query';
 
-const pushTableEvent = async (
-  groupId: bigint | null,
-  lineGroupId: string,
-) => {
+const pushTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
 
-  var group_id = groupId
-  if (groupId === null) {
-    const getGroup = await getGroupById(lineGroupId)
-    group_id = getGroup ? getGroup.id : null
+  if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
+    return;
   }
+
+  const { replyToken } = event;
+
+  const lineGroupId = event.source.groupId;
+
+  const getGroup = await getGroupById(lineGroupId)
+  const group_id = getGroup ? getGroup.id : null
 
   if (group_id===null) {
     return;
@@ -68,7 +70,13 @@ const pushTableEvent = async (
     altText: 'tables',
     contents: tableMessage(tableMapped)
   }
-  await client.pushMessage(lineGroupId, pushTable);
+  await client.replyMessage(replyToken, pushTable)
+  .then(() => {
+    console.log('ok');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 }
 

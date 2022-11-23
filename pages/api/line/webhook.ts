@@ -81,8 +81,7 @@ export default async function handler(
             await client.replyMessage(replyToken, response);
           }
           else if (event.message.text == 'สรุปตารางอันดับ' && event.source.type === 'group') {
-            const lineGroupId = event.source.groupId;
-            await pushTableEvent(null,lineGroupId)
+            await pushTableEvent(event)
           }
           else if(
             (/ทายผล (\S+) ชนะ/).test(event.message.text)
