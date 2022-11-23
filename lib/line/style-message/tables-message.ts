@@ -3,11 +3,18 @@ import { userPoint } from "../../types";
 
 const tableMessage = (tables:(userPoint)[]):FlexContainer => {
 
-  var positionBox:(FlexComponent)[] = tables.map((t) => {
+  var positionBox:(FlexComponent)[] = tables.map((t, i) => {
+    let position = i+1
     return {
       "type": "box",
       "layout": "baseline",
       "contents": [
+        {
+          "type": "text",
+          "text": position.toString(),
+          "flex": 0,
+          "size": "xxs",
+        },
         {
           "type": "icon",
           "url": t.image ?? process.env.SITE_URL + "/images/icons/blank-profile.png",
