@@ -16,19 +16,20 @@ export default async function handler(
   const apiLeagueId = 1;
   const apiSeason = 2022;
 
-  const current = new Date()
-  const currentHours = current.getHours()
+  const current = new Date().toLocaleString('en-US', { timeZone: "Asia/Bangkok" });
+  const currentThai = new Date(current)
+  const currentHours = currentThai.getHours()
 
   if (
     currentHours >= 18
     || (currentHours >= 0 && currentHours <= 5)
   ) {
 
-    const currentMonth = current.getMonth() + 1;
-    var apiDate = current.getFullYear() + '-' + currentMonth + '-' + current.getDate()
+    const currentMonth = currentThai.getMonth() + 1;
+    var apiDate = currentThai.getFullYear() + '-' + currentMonth + '-' + currentThai.getDate()
 
     if (currentHours >= 0 && currentHours <= 5) {
-      const yesterday = new Date().setDate(current.getDate() - 1);
+      const yesterday = new Date().setDate(currentThai.getDate() - 1);
       const y = new Date(yesterday);
       const yMonth = y.getMonth() + 1;
       apiDate = y.getFullYear() + '-' + yMonth + '-' + y.getDate()
