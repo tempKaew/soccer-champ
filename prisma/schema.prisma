@@ -69,6 +69,7 @@ model teams {
   id                                 BigInt    @id @default(autoincrement())
   image                              String    @db.VarChar(50)
   name                               String    @db.VarChar(50)
+  api_id                             Int?
   created_at                         DateTime  @default(now()) @db.Timestamp(0)
   updated_at                         DateTime? @db.Timestamp(0)
   joiner                             joiner[]
@@ -76,4 +77,5 @@ model teams {
   match_match_team_visitor_idToteams match[]   @relation("match_team_visitor_idToteams")
 
   @@index([name], map: "teams_name")
+  @@index([api_id], map: "teams_api_id")
 }

@@ -17,14 +17,26 @@ const joinGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponse
     type: 'text',
     text: 'ขอขอบคุณที่เชิญเราเข้ากลุ่ม: ' + groupProfile.groupName + ' มาร่วมสนุกทายผลฟุตบอลกับเรากันครับ'
   };
-  await client.pushMessage(groupId, txtMessage);
+  await client.pushMessage(groupId, txtMessage)
+  .then(() => {
+    console.log('push thank join group');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
   const rulMessage: FlexMessage = {
     type: 'flex',
     altText: 'rule',
     contents: ruleCollectPoint()
   }
-  await client.pushMessage(groupId, rulMessage);
+  await client.pushMessage(groupId, rulMessage)
+  .then(() => {
+    console.log('push rule message');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 export default joinGroupHandler

@@ -2,10 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { WebhookEvent, TextMessage, MessageAPIResponseBase } from '@line/bot-sdk';
 import client from "../../../lib/line/client";
 import joinGroupHandler from "../../../lib/line/event/join-group-handler";
-import matchStart from "../../../lib/line/event/match-start";
+import replyMatchEvent from "../../../lib/line/event/reply-match-event";
 import leaveGroupHandler from "../../../lib/line/event/leave-group-handler";
 import joinerGameHandler from "../../../lib/line/event/joiner-game-handler";
-import pushTableEvent from "../../../lib/line/event/push-table-event";
+import replyTableEvent from "../../../lib/line/event/reply-table-event";
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -70,7 +70,7 @@ export default async function handler(
         try {
           // await textEventHandler(event);
           if (event.message.text == 'ทายผลบอล') {
-            await matchStart(event);
+            await replyMatchEvent(event);
           }
           else if (event.message.text == 'hello soccer-champ' && event.source.type === 'group') {
             const { replyToken } = event;
@@ -81,7 +81,7 @@ export default async function handler(
             await client.replyMessage(replyToken, response);
           }
           else if (event.message.text == 'สรุปตารางอันดับ' && event.source.type === 'group') {
-            await pushTableEvent(event)
+            await replyTableEvent(event)
           }
           else if(
             (/ทายผล (\S+) ชนะ/).test(event.message.text)

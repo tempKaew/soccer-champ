@@ -1,11 +1,11 @@
 import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { prisma } from "../../../lib/prisma"
+import { prisma } from "../../prisma"
 import client from '../client';
-import tableMessage from "../../../lib/line/style-message/tables-message";
-import { userPoint } from "../../../lib/types";
+import tableMessage from "../style-message/tables-message";
+import { userPoint } from "../../types";
 import { getGroupById } from '../../query';
 
-const pushTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
 
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
@@ -67,7 +67,7 @@ const pushTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBa
 
   const pushTable: FlexMessage = {
     type: 'flex',
-    altText: 'tables',
+    altText: 'ตารางอันดับคะแนน',
     contents: tableMessage(tableMapped)
   }
   await client.replyMessage(replyToken, pushTable)
@@ -80,4 +80,4 @@ const pushTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBa
 
 }
 
-export default pushTableEvent;
+export default replyTableEvent;
