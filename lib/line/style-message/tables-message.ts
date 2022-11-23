@@ -14,6 +14,7 @@ const tableMessage = (tables:(userPoint)[]):FlexContainer => {
           "text": position.toString(),
           "flex": 0,
           "size": "xxs",
+          "color": "#aaaaaa"
         },
         {
           "type": "icon",
