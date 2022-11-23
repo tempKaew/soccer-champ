@@ -8,7 +8,7 @@ const matchStart = async (event: WebhookEvent): Promise<MessageAPIResponseBase |
   if (event.type !== 'message' || event.message.type !== 'text') {
     return;
   }
-  // const { replyToken } = event;
+  const { replyToken } = event;
   // const { text } = event.message;
 
   const matchToday = await getMatchToday()
@@ -30,7 +30,7 @@ const matchStart = async (event: WebhookEvent): Promise<MessageAPIResponseBase |
       altText: 'test',
       contents: matchFlexMessage(mapMatches)
     }
-    await client.pushMessage(event.source.groupId, response);
+    await client.replyMessage(replyToken, response);
   }
 }
 
