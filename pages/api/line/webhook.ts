@@ -72,6 +72,14 @@ export default async function handler(
           if (event.message.text == 'ทายผลบอล') {
             await matchStart(event);
           }
+          else if (event.message.text == 'hello soccer-champ' && event.source.type === 'group') {
+            const { replyToken } = event;
+            const response: TextMessage = {
+              type: 'text',
+              text: 'สวัสดีครับ'
+            };
+            await client.replyMessage(replyToken, response);
+          }
           else if (event.message.text == 'สรุปตารางอันดับ' && event.source.type === 'group') {
             const lineGroupId = event.source.groupId;
             await pushTableEvent(null,lineGroupId)
