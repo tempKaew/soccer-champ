@@ -24,7 +24,10 @@ const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
 
   const tables = await prisma.joiner.groupBy({
     where: {
-      group_id: group_id
+      group_id: group_id,
+      match: {
+        match_end: true
+      }
     },
     by: [
       'line_user_id'
@@ -40,7 +43,7 @@ const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
         point: 'desc',
       },
     },
-    take: 10
+    take: 20
   });
 
   const users = await prisma.line_users.findMany({
@@ -65,10 +68,24 @@ const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
     }
   })
 
+  const lastMatchEnd = await prisma.match.findFirst({
+    select: {
+      updated_at: true
+    },
+    where: {
+      match_end: true
+    },
+    orderBy: {
+      updated_at: 'desc'
+    }
+  })
+
+  const lastDateMatch = lastMatchEnd ? lastMatchEnd.updated_at?.toLocaleString() : ''
+
   const pushTable: FlexMessage = {
     type: 'flex',
     altText: 'ตารางอันดับคะแนน',
-    contents: tableMessage(tableMapped)
+    contents: tableMessage(tableMapped, lastDateMatch)
   }
   await client.replyMessage(replyToken, pushTable)
   .then(() => {

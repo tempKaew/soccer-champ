@@ -1,7 +1,7 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 import { userPoint } from "../../types";
 
-const tableMessage = (tables:(userPoint)[]):FlexContainer => {
+const tableMessage = (tables:(userPoint)[], lastDateMatch:string|undefined):FlexContainer => {
 
   var positionBox:(FlexComponent)[] = tables.map((t, i) => {
     let position = i+1
@@ -118,7 +118,7 @@ const tableMessage = (tables:(userPoint)[]):FlexContainer => {
         },
         {
           "type": "text",
-          "text": "แสดงแค่ 10 อันดับแรกเท่านั้น",
+          "text": "ีupdate: "+lastDateMatch,
           "wrap": true,
           "color": "#aaaaaa",
           "size": "xxs"
