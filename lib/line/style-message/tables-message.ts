@@ -118,7 +118,7 @@ const tableMessage = (tables:(userPoint)[], lastDateMatch:string|undefined):Flex
         },
         {
           "type": "text",
-          "text": "ีupdate: "+lastDateMatch,
+          "text": "update: " + lastDateMatch,
           "wrap": true,
           "color": "#aaaaaa",
           "size": "xxs"
