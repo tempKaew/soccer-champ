@@ -6,6 +6,12 @@ export type userPoint = {
   image: string | null | undefined
 }
 
+export type typeUserProfile = {
+  id: BigInt | undefined,
+  name: string | undefined,
+  image: string | null | undefined
+}
+
 export type typeMatchFlex = {
   teamHomeName: string | null,
   teamHomeImage: string | null,
@@ -28,5 +34,24 @@ export type typeMapMatchApi = {
     name: string | null,
     goal: number | null,
     winner:  boolean | null
+  }
+}
+
+export type typeMathWhoIs = {
+  id: bigint,
+  home: {
+    id: bigint | undefined,
+    name: string | undefined,
+    image: string | undefined,
+    joiner: (typeUserProfile)[] | undefined
+  },
+  visitor: {
+    id: bigint | undefined,
+    name: string | undefined,
+    image: string | undefined,
+    joiner: (typeUserProfile)[] | undefined
+  },
+  draw: {
+    joiner: (typeUserProfile)[] | undefined
   }
 }

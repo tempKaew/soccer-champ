@@ -6,6 +6,7 @@ import replyMatchEvent from "../../../lib/line/event/reply-match-event";
 import leaveGroupHandler from "../../../lib/line/event/leave-group-handler";
 import joinerGameHandler from "../../../lib/line/event/joiner-game-handler";
 import replyTableEvent from "../../../lib/line/event/reply-table-event";
+import replyMatchWhoIsEvent from "../../../lib/line/event/reply-match-who-is-event";
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -63,7 +64,7 @@ export default async function handler(
   const results = await Promise.all(
     events.map(async (event: WebhookEvent) => {
 
-      console.log('event: ',event)
+      // console.log('event: ',event)
       // console.log('event.type: ',event.type)
 
       if (event.type === 'message' && event.message.type === 'text') {
@@ -88,6 +89,9 @@ export default async function handler(
             || (/ทายผล (\S+) เสมอ/).test(event.message.text)
           ) {
             await joinerGameHandler(event);
+          }
+          else if((/การทายผลนัด (\S+)/).test(event.message.text)) {
+            await replyMatchWhoIsEvent(event);
           }
         } catch (err: unknown) {
           if (err instanceof Error) {
