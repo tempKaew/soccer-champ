@@ -170,7 +170,7 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
                 {
                   "type": "box",
                   "layout": "baseline",
-                  "contents": componentJoinerVisitor,
+                  "contents": componentJoinerDraw,
                   "flex": 0
                 }
               ]
@@ -202,7 +202,7 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
                 {
                   "type": "box",
                   "layout": "baseline",
-                  "contents": componentJoinerDraw,
+                  "contents": componentJoinerVisitor,
                   "flex": 0
                 }
               ]
