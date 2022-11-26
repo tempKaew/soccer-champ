@@ -46,7 +46,9 @@ export default async function handler(
     if (!response.ok) {
       console.log('Authentication Failed')
       const statusText: string = await response.text()
-      throw new Error(`HTTP error!: ${response.status} ${statusText}`);
+      return res.status(200).json({
+        status: `${response.status} ${statusText}`,
+      });
     }
 
     const fixtures = await response.json()
