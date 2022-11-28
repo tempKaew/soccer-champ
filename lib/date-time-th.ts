@@ -6,6 +6,6 @@ export const convertDateTimeTh = (
   const currentThai = new Date(current)
   const currentMonth = currentThai.getMonth() + 1;
 
-  return currentThai.getFullYear() + '-' + currentMonth + '-' + currentThai.getDate() + ' ' + currentThai.getHours + ':' + currentThai.getMinutes
+  return currentThai.getFullYear() + '-' + currentMonth + '-' + currentThai.getDate() + ' ' + currentThai.getHours() + ':' + currentThai.getMinutes()
 
 }
