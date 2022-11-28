@@ -19,6 +19,7 @@ export default async function handler(
   const current = new Date().toLocaleString('en-US', { timeZone: "Asia/Bangkok" });
   const currentThai = new Date(current)
   const currentHours = currentThai.getHours()
+  console.log('currentHours: ', currentHours);
 
   if (
     currentHours >= 18
@@ -34,6 +35,7 @@ export default async function handler(
       const yMonth = y.getMonth() + 1;
       apiDate = y.getFullYear() + '-' + yMonth + '-' + y.getDate()
     }
+    console.log('apiDate: ',apiDate);
 
     const response: Response = await fetch('https://v3.football.api-sports.io/fixtures?league='+apiLeagueId+'&season='+apiSeason+'&date='+apiDate, {
       "method": "GET",
@@ -73,6 +75,7 @@ export default async function handler(
       })
 
       const hasEndGame = mapMatchApi.filter(m => m.status === 'FT');
+      console.log('hasEndGame: ',hasEndGame);
       if (hasEndGame.length) {
 
         //map score
