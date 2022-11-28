@@ -86,6 +86,13 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
                   "url": process.env.SITE_URL + "/images/teams/" + matchWhoIs.home.image,
                   "size": "45px",
                   "align": "end"
+                },
+                {
+                  "type": "text",
+                  "text": matchWhoIs.home.name + "",
+                  "size": "xxs",
+                  "align": "end",
+                  "maxLines": 1
                 }
               ],
               "flex": 3
@@ -105,6 +112,13 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
                   "url": process.env.SITE_URL + "/images/teams/" + matchWhoIs.visitor.image,
                   "size": "45px",
                   "align": "start"
+                },
+                {
+                  "type": "text",
+                  "text": matchWhoIs.visitor.name + "",
+                  "size": "xxs",
+                  "align": "start",
+                  "maxLines": 1
                 }
               ],
               "flex": 3
