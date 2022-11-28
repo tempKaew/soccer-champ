@@ -98,10 +98,14 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
               "flex": 3
             },
             {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [],
-              "flex": 1
+              "type": "text",
+              "text": "#" + matchWhoIs.id,
+              "color": "#aaaaaa",
+              "size": "xxs",
+              "flex": 1,
+              "align": "center",
+              "decoration": "underline",
+              "gravity": "center"
             },
             {
               "type": "box",
