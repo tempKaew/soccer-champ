@@ -19,6 +19,14 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
               "size": "60px"
             },
             {
+              "type": "text",
+              "text": "#" + match.id,
+              "align": "center",
+              "flex": 0,
+              "decoration": "underline",
+              "gravity": "center"
+            },
+            {
               "type": "image",
               "url": process.env.SITE_URL + "/images/teams/" + match.teamVisitorImage,
               "align": "center",

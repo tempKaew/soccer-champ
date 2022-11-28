@@ -15,6 +15,7 @@ const replyMatchEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
 
   const mapMatches:(typeMatchFlex)[] = matchToday.map( match => {
     return {
+      id: match.id,
       "teamHomeName": match.teams_match_team_home_idToteams?.name ?? '',
       "teamHomeImage": match.teams_match_team_home_idToteams?.image ?? '',
       "teamVisitorName": match.teams_match_team_visitor_idToteams?.name ?? '',

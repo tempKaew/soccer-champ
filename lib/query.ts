@@ -89,6 +89,7 @@ export const getMatchToday = async () => {
       match_end: false
     },
     select: {
+      id:true,
       channel_live: true,
       team_home_id: true,
       team_visitor_id: true,

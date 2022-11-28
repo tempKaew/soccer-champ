@@ -13,6 +13,7 @@ export type typeUserProfile = {
 }
 
 export type typeMatchFlex = {
+  id: BigInt | null,
   teamHomeName: string | null,
   teamHomeImage: string | null,
   teamVisitorName: string | null,
