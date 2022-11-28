@@ -58,9 +58,9 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
     "type": "bubble",
     "hero": {
       "type": "image",
-      "url": process.env.SITE_URL + "/images/bg-top-ball-2.jpg",
+      "url": process.env.SITE_URL + "/images/bg-top-ball-2.webp",
       "size": "full",
-      "aspectRatio": "4:1",
+      "aspectRatio": "2.5:1",
       "aspectMode": "cover"
     },
     "body": {
