@@ -129,7 +129,7 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
           "spacing": "none",
           "margin": "none",
           "paddingTop": "5px",
-          "maxHeight": "50px"
+          "maxHeight": "60px"
         },
         {
           "type": "separator",
