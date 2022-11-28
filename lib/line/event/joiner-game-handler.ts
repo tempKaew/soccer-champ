@@ -1,7 +1,7 @@
 import { WebhookEvent, TextMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { createLineUser, existMatchToday, getGroupById, getLineUserById, getTeamByName } from '../../query';
-import client from '../client';
-import { prisma } from "../../prisma"
+import { createLineUser, existMatchToday, getGroupById, getLineUserById, getTeamByName } from '@lib/query';
+import client from '@lib/line/client';
+import { prisma } from "@lib/prisma"
 
 const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {

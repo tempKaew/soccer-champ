@@ -1,8 +1,8 @@
 import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { getMatchToday } from '../../query';
-import { typeMatchFlex } from '../../types';
-import client from '../client';
-import matchFlexMessage from '../style-message/match-flex-message';
+import { getMatchToday } from '@lib/query';
+import { typeMatchFlex } from '@lib/types';
+import client from '@lib/line/client';
+import matchFlexMessage from '@line-message/match-flex-message';
 
 const replyMatchEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {

@@ -1,8 +1,8 @@
 import { WebhookEvent, FlexMessage, TextMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { prisma } from "../../prisma"
-import { typeMathWhoIs, typeUserProfile } from '../../types';
-import client from '../client';
-import matchWhoIsMessage from '../style-message/match-who-is-message';
+import { prisma } from "@lib/prisma"
+import { typeMathWhoIs, typeUserProfile } from '@lib/types';
+import client from '@lib/line/client';
+import matchWhoIsMessage from '@line-message/match-who-is-message';
 
 const replyMatchWhoIsEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {

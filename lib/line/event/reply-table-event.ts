@@ -1,10 +1,10 @@
 import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { prisma } from "../../prisma"
-import client from '../client';
-import tableMessage from "../style-message/tables-message";
-import { userPoint } from "../../types";
-import { getGroupById } from '../../query';
-import { convertDateTimeTh } from '../../date-time-th';
+import { prisma } from "@lib/prisma"
+import client from '@lib/line/client';
+import tableMessage from "@line-message/tables-message";
+import { userPoint } from "@lib/types";
+import { getGroupById } from '@lib/query';
+import { convertDateTimeTh } from '@lib/date-time-th';
 
 const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
 

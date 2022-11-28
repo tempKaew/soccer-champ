@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { WebhookEvent, TextMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import client from "../../../lib/line/client";
-import joinGroupHandler from "../../../lib/line/event/join-group-handler";
-import replyMatchEvent from "../../../lib/line/event/reply-match-event";
-import leaveGroupHandler from "../../../lib/line/event/leave-group-handler";
-import joinerGameHandler from "../../../lib/line/event/joiner-game-handler";
-import replyTableEvent from "../../../lib/line/event/reply-table-event";
-import replyMatchWhoIsEvent from "../../../lib/line/event/reply-match-who-is-event";
+import client from '@lib/line/client';
+import joinGroupHandler from '@line-event/join-group-handler';
+import replyMatchEvent from '@line-event/reply-match-event';
+import leaveGroupHandler from '@line-event/leave-group-handler';
+import joinerGameHandler from '@line-event/joiner-game-handler';
+import replyTableEvent from '@line-event/reply-table-event';
+import replyMatchWhoIsEvent from '@line-event/reply-match-who-is-event';
+import mapPointEvent from '@line-event/reply-map-point-event';
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -109,6 +110,7 @@ export default async function handler(
           else if (
             event.message.text === 'map point'
           ) {
+            await mapPointEvent(event)
           }
         } catch (err: unknown) {
           if (err instanceof Error) {

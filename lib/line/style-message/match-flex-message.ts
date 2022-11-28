@@ -1,5 +1,5 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
-import { typeMatchFlex } from "../../types";
+import { typeMatchFlex } from "@lib/types";
 
 const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
 

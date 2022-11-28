@@ -1,6 +1,5 @@
 import { WebhookEvent, MessageAPIResponseBase } from '@line/bot-sdk';
-import { leaveGroup } from "../../../lib/query";
-import client from '../client';
+import { leaveGroup } from "@lib/query";
 
 const leaveGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'leave' || event.source.type !== 'group') {

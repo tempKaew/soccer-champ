@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { prisma } from "../../../lib/prisma"
-import { typeMapMatchApi } from "../../../lib/types";
+import { prisma } from "@lib/prisma"
+import { typeMapMatchApi } from "@lib/types";
 
 export default async function handler(
   req: NextApiRequest,

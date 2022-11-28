@@ -1,5 +1,5 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
-import { userPoint } from "../../types";
+import { userPoint } from "@lib/types";
 
 const tableMessage = (tables:(userPoint)[], lastDateMatch:string|undefined):FlexContainer => {
 

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import mapPointHandler from "../../../lib/line/handler/map-point-handler";
+import mapPointHandler from "@line-handler/map-point-handler";
 
 export default async function handler(
   req: NextApiRequest,

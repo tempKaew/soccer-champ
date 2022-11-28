@@ -1,7 +1,7 @@
 import { WebhookEvent, TextMessage, MessageAPIResponseBase, FlexMessage } from '@line/bot-sdk';
-import { createGroup } from "../../../lib/query";
-import client from '../client';
-import ruleCollectPoint from '../style-message/rule-collect-point';
+import { createGroup } from "@lib/query";
+import client from '@lib/line/client';
+import ruleCollectPoint from '@line-message/rule-collect-point';
 
 const joinGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'join' || event.source.type !== 'group') {

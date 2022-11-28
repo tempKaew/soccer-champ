@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma"
+import { prisma } from "@lib/prisma"
 
 export const createGroup = async (line_group_id: string, name: string, image:string) => {
   const group = await prisma.groups.upsert({

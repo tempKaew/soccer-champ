@@ -1,6 +1,6 @@
 import { MessageAPIResponseBase, TextMessage, WebhookEvent } from "@line/bot-sdk"
-import client from '../client';
-import mapPointHandler from "../handler/map-point-handler";
+import client from '@lib/line/client';
+import mapPointHandler from "@line-handler/map-point-handler";
 
 const mapPointEvent = async(event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {

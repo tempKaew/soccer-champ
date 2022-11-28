@@ -1,5 +1,5 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
-import { typeMathWhoIs } from "../../types";
+import { typeMathWhoIs } from "@lib/types";
 
 const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
 
