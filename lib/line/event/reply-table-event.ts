@@ -4,6 +4,7 @@ import client from '../client';
 import tableMessage from "../style-message/tables-message";
 import { userPoint } from "../../types";
 import { getGroupById } from '../../query';
+import { convertDateTimeTh } from '../../date-time-th';
 
 const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
 
@@ -80,7 +81,7 @@ const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
     }
   })
 
-  const lastDateMatch = lastMatchEnd ? lastMatchEnd.updated_at?.toLocaleString() : ''
+  const lastDateMatch = lastMatchEnd?.updated_at ? convertDateTimeTh(lastMatchEnd.updated_at) : ''
 
   const pushTable: FlexMessage = {
     type: 'flex',

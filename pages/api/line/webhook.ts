@@ -70,10 +70,16 @@ export default async function handler(
       if (event.type === 'message' && event.message.type === 'text') {
         try {
           // await textEventHandler(event);
-          if (event.message.text == 'ทายผลบอล') {
+          if (
+            event.message.text == 'ทายผลบอล'
+            && event.source.type === 'group'
+          ) {
             await replyMatchEvent(event);
           }
-          else if (event.message.text == 'hello soccer-champ' && event.source.type === 'group') {
+          else if (
+            event.message.text == 'hello soccer-champ'
+            && event.source.type === 'group'
+          ) {
             const { replyToken } = event;
             const response: TextMessage = {
               type: 'text',
@@ -81,17 +87,28 @@ export default async function handler(
             };
             await client.replyMessage(replyToken, response);
           }
-          else if (event.message.text == 'สรุปตารางอันดับ' && event.source.type === 'group') {
+          else if (
+            event.message.text == 'สรุปตารางอันดับ'
+            && event.source.type === 'group'
+          ) {
             await replyTableEvent(event)
           }
           else if(
-            (/ทายผล (\S+) ชนะ/).test(event.message.text)
-            || (/ทายผล (\S+) เสมอ/).test(event.message.text)
+            ((/ทายผล (\S+) ชนะ/).test(event.message.text)
+            || (/ทายผล (\S+) เสมอ/).test(event.message.text))
+            && event.source.type === 'group'
           ) {
             await joinerGameHandler(event);
           }
-          else if((/การทายผลนัด (\S+)/).test(event.message.text)) {
+          else if(
+            (/การทายผลนัด (\S+)/).test(event.message.text)
+            && event.source.type === 'group'
+          ) {
             await replyMatchWhoIsEvent(event);
+          }
+          else if (
+            event.message.text === 'map point'
+          ) {
           }
         } catch (err: unknown) {
           if (err instanceof Error) {

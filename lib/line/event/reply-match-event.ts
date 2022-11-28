@@ -27,7 +27,7 @@ const replyMatchEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
   if (event.source.type === 'group') {
     const response: FlexMessage = {
       type: 'flex',
-      altText: 'test',
+      altText: 'ทายผลบอล',
       contents: matchFlexMessage(mapMatches)
     }
     await client.replyMessage(replyToken, response);
