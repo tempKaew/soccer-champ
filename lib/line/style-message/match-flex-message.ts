@@ -24,7 +24,12 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
               "align": "center",
               "flex": 0,
               "decoration": "underline",
-              "gravity": "center"
+              "gravity": "center",
+              "action": {
+                "type": "message",
+                "label": "action",
+                "text": "การทายผลนัด " + match.id
+              }
             },
             {
               "type": "image",
