@@ -74,6 +74,21 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
       userProfile.pictureUrl
     )
   }
+
+  if (
+    user
+    && (userProfile.pictureUrl != user.image || userProfile.displayName != user.name)
+  ) {
+    const updateProfile = await prisma.line_users.update({
+      where: {
+        line_user_id: userProfile.userId
+      },
+      data: {
+        name: userProfile.displayName,
+        image: userProfile.pictureUrl
+      },
+    })
+  }
   
   const existJoin = await prisma?.joiner.findFirst({
     where: {
