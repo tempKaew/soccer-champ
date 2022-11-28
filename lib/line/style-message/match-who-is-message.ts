@@ -3,50 +3,53 @@ import { typeMathWhoIs } from "@lib/types";
 
 const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
 
+  //section Home Joiner
   if (matchWhoIs.home.joiner) {
     var componentJoinerHome: (FlexComponent)[] = matchWhoIs.home.joiner?.map(j => {
       return {
         "type": "icon",
-        "url": j.image ? j.image : "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+        "url": j.image ? j.image : process.env.SITE_URL + "/images/icons/blank-profile.png",
         "margin": "4px"
       }
     })
   }else{
     var componentJoinerHome: (FlexComponent)[] = [{
       "type": "icon",
-      "url": "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+      "url": process.env.SITE_URL + "/images/icons/blank-profile.png",
       "margin": "4px"
     }]
   }
 
+  //section Visitor Joiner
   if (matchWhoIs.visitor.joiner) {
     var componentJoinerVisitor: (FlexComponent)[] = matchWhoIs.visitor.joiner?.map(j => {
       return {
         "type": "icon",
-        "url": j.image ? j.image : "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+        "url": j.image ? j.image : process.env.SITE_URL + "/images/icons/blank-profile.png",
         "margin": "4px"
       }
     })
   }else{
     var componentJoinerVisitor: (FlexComponent)[] = [{
       "type": "icon",
-      "url": "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+      "url": process.env.SITE_URL + "/images/icons/blank-profile.png",
       "margin": "4px"
     }]
   }
 
+  //section Draw Joiner
   if (matchWhoIs.draw.joiner) {
     var componentJoinerDraw: (FlexComponent)[] = matchWhoIs.draw.joiner?.map(j => {
       return {
         "type": "icon",
-        "url": j.image ? j.image : "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+        "url": j.image ? j.image : process.env.SITE_URL + "/images/icons/blank-profile.png",
         "margin": "4px"
       }
     })
   }else{
     var componentJoinerDraw: (FlexComponent)[] = [{
       "type": "icon",
-      "url": "https://soccer-champ.vercel.app/images/icons/blank-profile.png",
+      "url": process.env.SITE_URL + "/images/icons/blank-profile.png",
       "margin": "4px"
     }]
   }
