@@ -99,12 +99,22 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
   })
 
   if (existJoin) {
-    const { replyToken } = event;
-    const response: TextMessage = {
-      type: 'text',
-      text: 'คุณ ' + user?.name + ' ส่งคำตอบแล้ว'
-    };
-    await client.replyMessage(replyToken, response);
+    const updateJoiner = await prisma.joiner.update({
+      where: {
+        id: existJoin.id
+      },
+      data: {
+        team_winner_id: teamID,
+      }
+    })
+    if (updateJoiner) {
+      const { replyToken } = event;
+      const response: TextMessage = {
+        type: 'text',
+        text: 'แก้ไขคำตอบ ' + user?.name + ' เรียบร้อย'
+      };
+      await client.replyMessage(replyToken, response);
+    }
     return;
   }else{
     const addJoiner = await prisma?.joiner.create({

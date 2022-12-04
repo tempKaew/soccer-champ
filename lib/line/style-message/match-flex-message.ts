@@ -58,18 +58,18 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
               "style": "secondary",
               "height": "sm"
             },
-            {
-              "type": "button",
-              "action": {
-                "type": "message",
-                "label": "เสมอ",
-                "text": "ทายผล " + match.teamHomeName + " เสมอ"
-              },
-              "style": "primary",
-              "height": "sm",
-              "margin": "4px",
-              "gravity": "center"
-            },
+            // {
+            //   "type": "button",
+            //   "action": {
+            //     "type": "message",
+            //     "label": "เสมอ",
+            //     "text": "ทายผล " + match.teamHomeName + " เสมอ"
+            //   },
+            //   "style": "primary",
+            //   "height": "sm",
+            //   "margin": "4px",
+            //   "gravity": "center"
+            // },
             {
               "type": "button",
               "action": {
