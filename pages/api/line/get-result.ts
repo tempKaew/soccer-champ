@@ -27,13 +27,13 @@ export default async function handler(
   ) {
 
     const currentMonth = currentThai.getMonth() + 1;
-    var apiDate = currentThai.getFullYear() + '-' + currentMonth + '-' + currentThai.getDate()
+    var apiDate = currentThai.getFullYear() + '-' + currentMonth + '-' + String(currentThai.getDate()).padStart(2, '0')
 
     if (currentHours >= 0 && currentHours <= 5) {
       const yesterday = new Date().setDate(currentThai.getDate() - 1);
       const y = new Date(yesterday);
       const yMonth = y.getMonth() + 1;
-      apiDate = y.getFullYear() + '-' + yMonth + '-' + y.getDate()
+      apiDate = y.getFullYear() + '-' + yMonth + '-' + String(y.getDate()).padStart(2, '0')
     }
     console.log('apiDate: ',apiDate);
 
@@ -54,6 +54,13 @@ export default async function handler(
     }
 
     const fixtures = await response.json()
+    if (fixtures.errors?.length) {
+      console.log(fixtures.errors);
+      return res.status(200).json({
+        status: `errors`,
+      });
+    }
+    
     if (fixtures.response.length) {
       const matches:(any)[] = fixtures.response
       const mapMatchApi:(typeMapMatchApi)[] = matches.map(match => {
@@ -123,6 +130,10 @@ export default async function handler(
           status: 'no team full time',
         });
       }
+    }else{
+      return res.status(200).json({
+        status: `fixtures empty`,
+      });
     }
   }else{
     return res.status(200).json({
