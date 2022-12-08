@@ -36,7 +36,7 @@ const teamChampMessage = (teams:(typeTeamInfo)[]):FlexContainer => {
             },
             {
               "type": "text",
-              "text": team.champ_score ?? 0 + " point",
+              "text": (team.champ_score ?? 0) + " point",
               "weight": "bold",
               "size": "sm",
               "align": "end",
