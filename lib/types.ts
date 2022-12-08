@@ -60,5 +60,6 @@ export type typeMathWhoIs = {
 export type typeTeamInfo = {
   id: bigint,
   image: string,
-  name: string
+  name: string,
+  champ_score: number | null
 }

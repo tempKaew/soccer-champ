@@ -22,7 +22,8 @@ const replyPredictionEvent = async (event: WebhookEvent): Promise<MessageAPIResp
       return {
         id: team.id,
         image: team.image,
-        name: team.name
+        name: team.name,
+        champ_score: team.champ_score
       }
     })
     console.log(teamMap);
