@@ -8,6 +8,7 @@ import joinerGameHandler from '@line-event/joiner-game-handler';
 import replyTableEvent from '@line-event/reply-table-event';
 import replyMatchWhoIsEvent from '@line-event/reply-match-who-is-event';
 import mapPointEvent from '@line-event/reply-map-point-event';
+import replyPredictionEvent from "@line-event/reply-prediction-event";
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -87,6 +88,12 @@ export default async function handler(
               text: 'สวัสดีครับ'
             };
             await client.replyMessage(replyToken, response);
+          }
+          else if (
+            event.message.text == 'ทายแชมป์บอลโลก'
+            && event.source.type === 'group'
+          ) {
+            await replyPredictionEvent(event)
           }
           else if (
             event.message.text == 'สรุปตารางอันดับ'

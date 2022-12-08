@@ -56,3 +56,9 @@ export type typeMathWhoIs = {
     joiner: (typeUserProfile)[] | undefined
   }
 }
+
+export type typeTeamInfo = {
+  id: bigint,
+  image: string,
+  name: string
+}
