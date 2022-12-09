@@ -8,15 +8,16 @@ datasource db {
 }
 
 model groups {
-  id            BigInt       @id @default(autoincrement())
-  line_group_id String       @unique @db.VarChar(50)
-  name          String       @db.VarChar(50)
-  image         String?      @db.Text
-  joined        Boolean      @default(true) @db.Boolean
-  created_at    DateTime     @default(now()) @db.Timestamp(0)
-  updated_at    DateTime?    @db.Timestamp(0)
+  id            BigInt         @id @default(autoincrement())
+  line_group_id String         @unique @db.VarChar(50)
+  name          String         @db.VarChar(50)
+  image         String?        @db.Text
+  joined        Boolean        @default(true) @db.Boolean
+  created_at    DateTime       @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?      @db.Timestamp(0)
   joiner        joiner[]
   line_users    line_users[]
+  joiner_champ  joiner_champ[]
 }
 
 model joiner {
@@ -35,15 +36,16 @@ model joiner {
 }
 
 model line_users {
-  id           BigInt    @id @default(autoincrement())
-  name         String    @db.VarChar(50)
+  id           BigInt         @id @default(autoincrement())
+  name         String         @db.VarChar(50)
   group_id     BigInt?
-  line_user_id String    @unique @db.VarChar(50)
-  image        String?   @db.Text
-  created_at   DateTime  @default(now()) @db.Timestamp(0)
-  updated_at   DateTime? @db.Timestamp(0)
-  groups       groups?   @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_group_id_foreign")
+  line_user_id String         @unique @db.VarChar(50)
+  image        String?        @db.Text
+  created_at   DateTime       @default(now()) @db.Timestamp(0)
+  updated_at   DateTime?      @db.Timestamp(0)
+  groups       groups?        @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "line_group_id_foreign")
   joiner       joiner[]
+  joiner_champ joiner_champ[]
 
   @@index([line_user_id], map: "users_line_user_id")
 }
@@ -66,18 +68,32 @@ model match {
 }
 
 model teams {
-  id                                 BigInt    @id @default(autoincrement())
-  image                              String    @db.VarChar(50)
-  name                               String    @db.VarChar(50)
+  id                                 BigInt         @id @default(autoincrement())
+  image                              String         @db.VarChar(50)
+  name                               String         @db.VarChar(50)
   api_id                             Int?
-  created_at                         DateTime  @default(now()) @db.Timestamp(0)
-  updated_at                         DateTime? @db.Timestamp(0)
+  created_at                         DateTime       @default(now()) @db.Timestamp(0)
+  updated_at                         DateTime?      @db.Timestamp(0)
   joiner                             joiner[]
   champ_score                        Int?
-  is_finalist                        Boolean   @default(false) @db.Boolean
-  match_match_team_home_idToteams    match[]   @relation("match_team_home_idToteams")
-  match_match_team_visitor_idToteams match[]   @relation("match_team_visitor_idToteams")
+  is_finalist                        Boolean        @default(false) @db.Boolean
+  match_match_team_home_idToteams    match[]        @relation("match_team_home_idToteams")
+  match_match_team_visitor_idToteams match[]        @relation("match_team_visitor_idToteams")
+  joiner_champ                       joiner_champ[]
 
   @@index([name], map: "teams_name")
   @@index([api_id], map: "teams_api_id")
+}
+
+model joiner_champ {
+  id            BigInt      @id @default(autoincrement())
+  line_user_id  BigInt?
+  group_id      BigInt?
+  team_champ_id BigInt?
+  point         Int?        @default(0)
+  created_at    DateTime    @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?   @db.Timestamp(0)
+  groups        groups?     @relation(fields: [group_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_champ_group_id_foreign")
+  line_users    line_users? @relation(fields: [line_user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_champ_line_user_id_foreign")
+  teams         teams?      @relation(fields: [team_champ_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "joiner_champ_team_champ_id_foreign")
 }

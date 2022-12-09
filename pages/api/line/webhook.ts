@@ -9,6 +9,7 @@ import replyTableEvent from '@line-event/reply-table-event';
 import replyMatchWhoIsEvent from '@line-event/reply-match-who-is-event';
 import mapPointEvent from '@line-event/reply-map-point-event';
 import replyPredictionEvent from "@line-event/reply-prediction-event";
+import replyPredictionTeamEvent from "@line-event/reply-prediction-team-event";
 
 const textEventHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
   if (event.type !== 'message' || event.message.type !== 'text') {
@@ -113,6 +114,12 @@ export default async function handler(
             && event.source.type === 'group'
           ) {
             await replyMatchWhoIsEvent(event);
+          }
+          else if(
+            (/ทายแชมป์โลกคือ (\S+)/).test(event.message.text)
+            && event.source.type === 'group'
+          ) {
+            await replyPredictionTeamEvent(event)
           }
           else if (
             event.message.text === 'map point'

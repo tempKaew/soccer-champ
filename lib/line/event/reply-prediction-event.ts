@@ -1,6 +1,6 @@
 import { prisma } from "@lib/prisma"
 import { typeTeamInfo } from "@lib/types";
-import { FlexMessage, MessageAPIResponseBase, WebhookEvent } from "@line/bot-sdk";
+import { FlexMessage, MessageAPIResponseBase, TextMessage, WebhookEvent } from "@line/bot-sdk";
 import client from '@lib/line/client';
 import teamChampMessage from "@line-message/team-champ-message";
 
@@ -32,7 +32,14 @@ const replyPredictionEvent = async (event: WebhookEvent): Promise<MessageAPIResp
       altText: 'match นี้ใครทายบ้าง',
       contents: teamChampMessage(teamMap)
     }
-    await client.replyMessage(replyToken, predictionMessage)
+    return await client.replyMessage(replyToken, predictionMessage)
+  }else{
+    const { replyToken } = event;
+    const response: TextMessage = {
+      type: 'text',
+      text: 'ไม่มีทีมให้ทายผล'
+    };
+    return await client.replyMessage(replyToken, response);
   }
 
   return
