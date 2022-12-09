@@ -1,6 +1,6 @@
 import { prisma } from "@lib/prisma"
 import client from '@lib/line/client';
-import { getGroupById, getLineUserById } from '@lib/query';
+import { createLineUser, getGroupById, getLineUserById } from '@lib/query';
 import { MessageAPIResponseBase, TextMessage, WebhookEvent } from "@line/bot-sdk"
 
 const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
@@ -9,6 +9,7 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
   }
   const groupId = event.source.groupId;
   const userId = event.source.userId ? event.source.userId : '';
+  let userProfile = await client.getGroupMemberProfile(groupId, userId)
 
   const { replyToken } = event;
   const rexName = event.message.text.match(/ทายแชมป์โลกคือ (\S+)/)
@@ -30,7 +31,17 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
     teamID && groupId && userId
   ) {
     const group = await getGroupById(groupId)
-    const user = await getLineUserById(userId)
+    var user = await getLineUserById(userId)
+
+    if (!user && userId && group) {
+      user = await createLineUser(
+        userId,
+        userProfile.displayName,
+        group?.id,
+        userProfile.pictureUrl
+      )
+    }
+
     if (group&&user) {
       const existJoinerChamp = await prisma.joiner_champ.findFirst({
         where: {
