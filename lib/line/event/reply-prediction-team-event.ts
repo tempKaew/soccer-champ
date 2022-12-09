@@ -45,7 +45,8 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
           },
           data: {
             team_champ_id: team?.id,
-            point: team?.champ_score
+            point: team?.champ_score,
+            updated_at: new Date()
           }
         })
         if (updateJoinerChamp) {
