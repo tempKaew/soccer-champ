@@ -44,7 +44,8 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
             id: existJoinerChamp.id
           },
           data: {
-            team_champ_id: team?.id
+            team_champ_id: team?.id,
+            point: team?.champ_score
           }
         })
         if (updateJoinerChamp) {
@@ -65,7 +66,8 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
           data: {
             line_user_id: user.id,
             group_id: group.id,
-            team_champ_id: team?.id
+            team_champ_id: team?.id,
+            point: team?.champ_score
           }
         })
         if (addJoinerChamp) {
