@@ -76,7 +76,7 @@ const champWhoIsMessage = (predictions:(typeChampWhoIs)[]):FlexContainer => {
           "type": "text",
           "text": 'team',
           "size": "sm",
-          "align": "end",
+          "align": "start",
           "flex": 1
         },
         {
