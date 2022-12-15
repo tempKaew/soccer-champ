@@ -51,7 +51,7 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
       })
       if (
         existJoinerChamp
-        && existJoinerChamp.team_champ_id == teamID
+        && existJoinerChamp.team_champ_id === teamID
       ){
         const response: TextMessage = {
           type: 'text',
