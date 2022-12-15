@@ -49,7 +49,16 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
           group_id: group.id
         }
       })
-      if (existJoinerChamp) {
+      if (
+        existJoinerChamp
+        && existJoinerChamp.team_champ_id == teamID
+      ){
+        const response: TextMessage = {
+          type: 'text',
+          text: 'คุณได้ทายทีมนี้เป็นแชมป์ไปแล้ว'
+        };
+        await client.replyMessage(replyToken, response);
+      }else if (existJoinerChamp) {
         const updateJoinerChamp = await prisma.joiner_champ.update({
           where: {
             id: existJoinerChamp.id
