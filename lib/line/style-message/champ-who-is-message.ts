@@ -32,10 +32,10 @@ const champWhoIsMessage = (predictions:(typeChampWhoIs)[]):FlexContainer => {
         {
           "type": "text",
           "text": p.team_champ_name,
-          "size": "sm",
-          "align": "end",
+          "size": "xxs",
+          "align": "start",
           "color": "#aaaaaa",
-          "flex": 1
+          "flex": 2
         },
         {
           "type": "text",
