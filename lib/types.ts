@@ -63,3 +63,12 @@ export type typeTeamInfo = {
   name: string,
   champ_score: number | null
 }
+
+export type typeChampWhoIs = {
+  id: bigint,
+  line_user_name: string,
+  line_user_image: string,
+  team_champ_name: string,
+  team_champ_image: string,
+  point: number
+}
