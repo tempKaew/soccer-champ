@@ -107,7 +107,7 @@ export default async function handler(
             event.message.text == 'สรุปการทายแชมป์'
             && event.source.type === 'group'
           ) {
-            await replyPredictionWhoEvent
+            await replyPredictionWhoEvent(event)
           }
           else if(
             ((/ทายผล (\S+) ชนะ/).test(event.message.text)
