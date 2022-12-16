@@ -10,7 +10,7 @@
 
 ## Deploy your own
 
-### Install this repo
+### 1. Download and install dependencies
 
 Run the follow three commands to clone this repo and install its dependencies:
 
@@ -20,8 +20,25 @@ cd video-course-starter-kit
 yarn
 ```
 
-### Database Setup
+-Set up the environment variables:
 
-- yarn prisma db push
+```
+cp .env.example .env
+```
 
-### Line developers Setup
+### 2. Create and seed the database
+
+Open .env and set the SUPABASE_URL and SUPABASE_KEY variable with the connection string from Supabase
+Create the database schema:
+
+```
+yarn prisma db push
+```
+
+### 3. Line developers Setup
+
+### 4. Start the app
+
+```
+yarn dev
+```
