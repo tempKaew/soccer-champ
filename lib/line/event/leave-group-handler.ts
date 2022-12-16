@@ -1,7 +1,7 @@
 import { WebhookEvent, MessageAPIResponseBase } from '@line/bot-sdk';
 import { leaveGroup } from "@lib/query";
 
-const leaveGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function leaveGroupHandler (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'leave' || event.source.type !== 'group') {
     return;
   }
@@ -9,5 +9,3 @@ const leaveGroupHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
   const group = await leaveGroup(groupId)
   console.log(group, groupId);
 }
-
-export default leaveGroupHandler

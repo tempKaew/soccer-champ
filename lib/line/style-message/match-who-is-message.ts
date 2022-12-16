@@ -1,7 +1,7 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 import { typeMathWhoIs } from "@lib/types";
 
-const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
+export default function matchWhoIsMessage(matchWhoIs:typeMathWhoIs):FlexContainer {
 
   //section Home Joiner
   if (matchWhoIs.home.joiner) {
@@ -243,5 +243,3 @@ const matchWhoIsMessage = (matchWhoIs:typeMathWhoIs):FlexContainer => {
     }
   }
 }
-
-export default matchWhoIsMessage

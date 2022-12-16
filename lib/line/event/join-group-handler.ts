@@ -3,7 +3,7 @@ import { createGroup } from "@lib/query";
 import client from '@lib/line/client';
 import ruleCollectPoint from '@line-message/rule-collect-point';
 
-const joinGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function joinGroupHandler(event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'join' || event.source.type !== 'group') {
     return;
   }
@@ -38,5 +38,3 @@ const joinGroupHandler = async (event: WebhookEvent): Promise<MessageAPIResponse
     console.log(err);
   });
 }
-
-export default joinGroupHandler

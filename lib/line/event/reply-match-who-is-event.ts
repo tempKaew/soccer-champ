@@ -4,7 +4,7 @@ import { typeMathWhoIs, typeUserProfile } from '@lib/types';
 import client from '@lib/line/client';
 import matchWhoIsMessage from '@line-message/match-who-is-message';
 
-const replyMatchWhoIsEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyMatchWhoIsEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
   }
@@ -108,5 +108,3 @@ const replyMatchWhoIsEvent = async (event: WebhookEvent): Promise<MessageAPIResp
     return;
   }
 }
-
-export default replyMatchWhoIsEvent

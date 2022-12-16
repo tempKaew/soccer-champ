@@ -4,7 +4,7 @@ import { FlexMessage, MessageAPIResponseBase, TextMessage, WebhookEvent } from "
 import client from '@lib/line/client';
 import teamChampMessage from "@line-message/team-champ-message";
 
-const replyPredictionEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyPredictionEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
   }
@@ -44,5 +44,3 @@ const replyPredictionEvent = async (event: WebhookEvent): Promise<MessageAPIResp
 
   return
 }
-
-export default replyPredictionEvent

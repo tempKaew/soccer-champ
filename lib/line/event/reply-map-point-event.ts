@@ -2,7 +2,7 @@ import { MessageAPIResponseBase, TextMessage, WebhookEvent } from "@line/bot-sdk
 import client from '@lib/line/client';
 import mapPointHandler from "@line-handler/map-point-handler";
 
-const mapPointEvent = async(event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function mapPointEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text') {
     return;
   }
@@ -16,4 +16,3 @@ const mapPointEvent = async(event: WebhookEvent): Promise<MessageAPIResponseBase
   await client.replyMessage(replyToken, response);
 
 }
-export default mapPointEvent

@@ -1,7 +1,7 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 import { typeChampWhoIs } from "@lib/types";
 
-const champWhoIsMessage = (predictions:(typeChampWhoIs)[]):FlexContainer => {
+export default function champWhoIsMessage(predictions:(typeChampWhoIs)[]):FlexContainer {
 
   var positionBox:(FlexComponent)[] = predictions.map((p, i) => {
     let position = i+1
@@ -120,5 +120,3 @@ const champWhoIsMessage = (predictions:(typeChampWhoIs)[]):FlexContainer => {
     }
   }
 }
-
-export default champWhoIsMessage

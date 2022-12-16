@@ -3,7 +3,7 @@ import client from '@lib/line/client';
 import { createLineUser, getGroupById, getLineUserById } from '@lib/query';
 import { MessageAPIResponseBase, TextMessage, WebhookEvent } from "@line/bot-sdk"
 
-const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyPredictionTeamEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
   }
@@ -115,5 +115,3 @@ const replyPredictionTeamEvent = async (event: WebhookEvent): Promise<MessageAPI
   }
   return
 }
-
-export default replyPredictionTeamEvent

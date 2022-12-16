@@ -4,7 +4,7 @@ import { typeMatchFlex } from '@lib/types';
 import client from '@lib/line/client';
 import matchFlexMessage from '@line-message/match-flex-message';
 
-const replyMatchEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyMatchEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text') {
     return;
   }
@@ -34,5 +34,3 @@ const replyMatchEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
     await client.replyMessage(replyToken, response);
   }
 }
-
-export default replyMatchEvent

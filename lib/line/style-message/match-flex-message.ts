@@ -1,7 +1,7 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 import { typeMatchFlex } from "@lib/types";
 
-const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
+export default function matchFlexMessage(matches:(typeMatchFlex)[]):FlexContainer {
 
   var mapContainerMatch:(FlexComponent)[] = matches.map( match => {
     return {
@@ -209,5 +209,3 @@ const matchFlexMessage = (matches:(typeMatchFlex)[]):FlexContainer => {
     }
   };
 }
-
-export default matchFlexMessage

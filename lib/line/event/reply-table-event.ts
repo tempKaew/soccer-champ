@@ -6,7 +6,7 @@ import { userPoint } from "@lib/types";
 import { getGroupById } from '@lib/query';
 import { convertDateTimeTh } from '@lib/date-time-th';
 
-const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyTableEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
 
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
@@ -97,5 +97,3 @@ const replyTableEvent = async (event: WebhookEvent): Promise<MessageAPIResponseB
   });
 
 }
-
-export default replyTableEvent;

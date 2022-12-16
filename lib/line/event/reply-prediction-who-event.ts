@@ -5,7 +5,7 @@ import { MessageAPIResponseBase, TextMessage, FlexMessage, WebhookEvent } from "
 import { typeChampWhoIs } from "@lib/types";
 import champWhoIsMessage from "@line-message/champ-who-is-message";
 
-const replyPredictionWhoEvent = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function replyPredictionWhoEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
   }
@@ -69,5 +69,3 @@ const replyPredictionWhoEvent = async (event: WebhookEvent): Promise<MessageAPIR
   }
 
 }
-
-export default replyPredictionWhoEvent

@@ -3,7 +3,7 @@ import { createLineUser, existMatchToday, getGroupById, getLineUserById, getTeam
 import client from '@lib/line/client';
 import { prisma } from "@lib/prisma"
 
-const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> => {
+export default async function joinerGameHandler(event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
   if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
     return;
   }
@@ -136,4 +136,3 @@ const joinerGameHandler = async (event: WebhookEvent): Promise<MessageAPIRespons
     }
   }
 }
-export default joinerGameHandler

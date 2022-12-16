@@ -1,7 +1,7 @@
 import { typeTeamInfo } from "@lib/types";
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 
-const teamChampMessage = (teams:(typeTeamInfo)[]):FlexContainer => {
+export default function teamChampMessage(teams:(typeTeamInfo)[]):FlexContainer {
 
   var teamsFlexComponent:(FlexComponent)[] = teams.map(team => {
     return {
@@ -109,5 +109,3 @@ const teamChampMessage = (teams:(typeTeamInfo)[]):FlexContainer => {
     }
   };
 }
-
-export default teamChampMessage

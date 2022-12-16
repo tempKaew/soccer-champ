@@ -1,6 +1,6 @@
 import { prisma } from "@lib/prisma"
 
-const mapPointHandler = async () => {
+export default async function mapPointHandler () {
 
   const endMatches = await prisma.match.findMany({
     where: {
@@ -124,5 +124,3 @@ const mapPointHandler = async () => {
   return 'map complete'
 
 }
-
-export default mapPointHandler

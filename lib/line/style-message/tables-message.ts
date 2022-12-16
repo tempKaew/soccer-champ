@@ -1,10 +1,10 @@
 import { FlexComponent, FlexContainer } from "@line/bot-sdk";
 import { userPoint } from "@lib/types";
 
-const tableMessage = (tables:(userPoint)[], lastDateMatch:string|undefined):FlexContainer => {
+export default function tableMessage(tables:(userPoint)[], lastDateMatch:string|undefined):FlexContainer {
 
   var positionBox:(FlexComponent)[] = tables.map((t, i) => {
-    let position = i+1
+    let position:number = i+1
     return {
       "type": "box",
       "layout": "baseline",
@@ -127,5 +127,3 @@ const tableMessage = (tables:(userPoint)[], lastDateMatch:string|undefined):Flex
     }
   }
 }
-
-export default tableMessage

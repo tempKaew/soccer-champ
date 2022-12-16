@@ -1,4 +1,4 @@
-const historyMatchMessage = () => {
+export default function historyMatchMessage() {
   return {
     "type": "bubble",
     "hero": {
@@ -137,4 +137,3 @@ const historyMatchMessage = () => {
     }
   }
 }
-export default historyMatchMessage
