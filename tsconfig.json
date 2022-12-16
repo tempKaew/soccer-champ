@@ -2,13 +2,28 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@line-event/*": ["lib/line/event/*"],
-      "@line-handler/*": ["lib/line/handler/*"],
-      "@line-message/*": ["lib/line/style-message/*"],
-      "@lib/*": ["lib/*"]
+      "@line-event/*": [
+        "lib/line/event/*"
+      ],
+      "@line-handler/*": [
+        "lib/line/handler/*"
+      ],
+      "@line-message/*": [
+        "lib/line/style-message/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ]
     },
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,8 +35,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
