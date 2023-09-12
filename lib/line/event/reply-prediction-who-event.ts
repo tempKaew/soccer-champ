@@ -1,25 +1,36 @@
-import { prisma } from "@lib/prisma"
-import client from '@lib/line/client';
-import { getGroupById } from '@lib/query';
-import { MessageAPIResponseBase, TextMessage, FlexMessage, WebhookEvent } from "@line/bot-sdk"
-import { typeChampWhoIs } from "@lib/types";
-import champWhoIsMessage from "@line-message/champ-who-is-message";
+import prisma from '@lib/prisma'
+import client from '@lib/line/client'
+import { getGroupById } from '@lib/query'
+import {
+  MessageAPIResponseBase,
+  TextMessage,
+  FlexMessage,
+  WebhookEvent
+} from '@line/bot-sdk'
+import { typeChampWhoIs } from '@lib/types'
+import champWhoIsMessage from '@line-message/champ-who-is-message'
 
-export default async function replyPredictionWhoEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
-  if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
-    return;
+export default async function replyPredictionWhoEvent(
+  event: WebhookEvent
+): Promise<MessageAPIResponseBase | undefined> {
+  if (
+    event.type !== 'message' ||
+    event.message.type !== 'text' ||
+    event.source.type !== 'group'
+  ) {
+    return
   }
 
-  const groupId = event.source.groupId;
-  const { replyToken } = event;
+  const groupId = event.source.groupId
+  const { replyToken } = event
   const group = await getGroupById(groupId)
 
   if (!groupId) {
     const response: TextMessage = {
       type: 'text',
       text: 'ไม่มีข้อมูลกลุ่ม'
-    };
-    await client.replyMessage(replyToken, response);
+    }
+    await client.replyMessage(replyToken, response)
   }
 
   if (group) {
@@ -36,7 +47,7 @@ export default async function replyPredictionWhoEvent (event: WebhookEvent): Pro
       }
     })
 
-    const mapPredictions:(typeChampWhoIs)[] = predictions.map( p => {
+    const mapPredictions: typeChampWhoIs[] = predictions.map((p) => {
       return {
         id: p.id,
         line_user_name: p.line_users?.name ?? '',
@@ -52,20 +63,19 @@ export default async function replyPredictionWhoEvent (event: WebhookEvent): Pro
         altText: 'สรุปการทายแชมป์',
         contents: champWhoIsMessage(mapPredictions)
       }
-      await client.replyMessage(replyToken, response);
-    }else{
+      await client.replyMessage(replyToken, response)
+    } else {
       const response: TextMessage = {
         type: 'text',
         text: 'ไม่มีผู้ทายแชมป์ในกลุ่มนี้'
-      };
-      await client.replyMessage(replyToken, response);
+      }
+      await client.replyMessage(replyToken, response)
     }
-  }else{
+  } else {
     const response: TextMessage = {
       type: 'text',
       text: 'กลุ่มได้ถูกลบแล้ว'
-    };
-    await client.replyMessage(replyToken, response);
+    }
+    await client.replyMessage(replyToken, response)
   }
-
 }

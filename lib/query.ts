@@ -1,9 +1,13 @@
-import { prisma } from "@lib/prisma"
+import prisma from '@lib/prisma'
 
-export const createGroup = async (line_group_id: string, name: string, image:string) => {
+export const createGroup = async (
+  line_group_id: string,
+  name: string,
+  image: string
+) => {
   const group = await prisma.groups.upsert({
     where: {
-      line_group_id: line_group_id,
+      line_group_id: line_group_id
     },
     update: {
       joined: true
@@ -13,12 +17,17 @@ export const createGroup = async (line_group_id: string, name: string, image:str
       name: name,
       image: image,
       joined: true
-    },
+    }
   })
   console.log(group)
 }
 
-export const createLineUser = async(lineUserId:string, lineName:string, groupId: bigint, lineImage: string) => {
+export const createLineUser = async (
+  lineUserId: string,
+  lineName: string,
+  groupId: bigint,
+  lineImage: string
+) => {
   return prisma.line_users.create({
     data: {
       name: lineName,
@@ -29,7 +38,7 @@ export const createLineUser = async(lineUserId:string, lineName:string, groupId:
   })
 }
 
-export const getGroupById = async(lineGroupId:string) => {
+export const getGroupById = async (lineGroupId: string) => {
   return prisma.groups.findFirst({
     where: {
       line_group_id: lineGroupId
@@ -37,7 +46,7 @@ export const getGroupById = async(lineGroupId:string) => {
   })
 }
 
-export const getLineUserById = async(lineUserId:string) => {
+export const getLineUserById = async (lineUserId: string) => {
   return prisma.line_users.findFirst({
     where: {
       line_user_id: lineUserId
@@ -45,7 +54,7 @@ export const getLineUserById = async(lineUserId:string) => {
   })
 }
 
-export const getTeamByName = async(teamName: string) => {
+export const getTeamByName = async (teamName: string) => {
   return prisma.teams.findFirst({
     where: {
       name: teamName
@@ -56,17 +65,16 @@ export const getTeamByName = async(teamName: string) => {
 export const leaveGroup = async (line_group_id: string) => {
   const group = await prisma.groups.update({
     where: {
-      line_group_id: line_group_id,
+      line_group_id: line_group_id
     },
     data: {
       joined: false
-    },
+    }
   })
   console.log(group)
 }
 
 export const getMatchToday = async () => {
-
   let startDate = new Date()
   startDate.setUTCHours(17)
   startDate.setMinutes(0)
@@ -84,12 +92,12 @@ export const getMatchToday = async () => {
     where: {
       date_time_kickoff: {
         gte: startDate,
-        lt:  endDate
+        lt: endDate
       },
       match_end: false
     },
     select: {
-      id:true,
+      id: true,
       channel_live: true,
       team_home_id: true,
       team_visitor_id: true,
@@ -104,7 +112,7 @@ export const getMatchToday = async () => {
   return matchToday
 }
 
-export const existMatchToday = async(teamId:bigint) => {
+export const existMatchToday = async (teamId: bigint) => {
   let startDate = new Date()
   startDate.setUTCHours(17)
   startDate.setMinutes(0)
@@ -122,31 +130,31 @@ export const existMatchToday = async(teamId:bigint) => {
     where: {
       date_time_kickoff: {
         gte: startDate,
-        lt:  endDate
+        lt: endDate
       },
       OR: [
         {
-          team_home_id: teamId,
+          team_home_id: teamId
         },
         {
-          team_visitor_id: teamId,
+          team_visitor_id: teamId
         }
       ]
-    },
+    }
   })
   return matchToday
 }
 
-export const getMatchBeforeMinute = async(minute:number) => {
-  const date = new Date();
-  let startDate = new Date(date.getTime() + (minute*60*1000));
-  let endDate = new Date(date.getTime() + (minute*60*1000));
+export const getMatchBeforeMinute = async (minute: number) => {
+  const date = new Date()
+  let startDate = new Date(date.getTime() + minute * 60 * 1000)
+  let endDate = new Date(date.getTime() + minute * 60 * 1000)
 
   const matches = await prisma.match.findMany({
     where: {
       date_time_kickoff: {
         gte: startDate,
-        lt:  endDate
+        lt: endDate
       }
     },
     select: {

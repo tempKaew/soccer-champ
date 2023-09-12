@@ -1,26 +1,35 @@
-import { WebhookEvent, FlexMessage, MessageAPIResponseBase } from '@line/bot-sdk';
-import { prisma } from "@lib/prisma"
-import client from '@lib/line/client';
-import tableMessage from "@line-message/tables-message";
-import { userPoint } from "@lib/types";
-import { getGroupById } from '@lib/query';
-import { convertDateTimeTh } from '@lib/date-time-th';
+import {
+  WebhookEvent,
+  FlexMessage,
+  MessageAPIResponseBase
+} from '@line/bot-sdk'
+import prisma from '@lib/prisma'
+import client from '@lib/line/client'
+import tableMessage from '@line-message/tables-message'
+import { userPoint } from '@lib/types'
+import { getGroupById } from '@lib/query'
+import { convertDateTimeTh } from '@lib/date-time-th'
 
-export default async function replyTableEvent (event: WebhookEvent): Promise<MessageAPIResponseBase | undefined> {
-
-  if (event.type !== 'message' || event.message.type !== 'text' || event.source.type !== 'group') {
-    return;
+export default async function replyTableEvent(
+  event: WebhookEvent
+): Promise<MessageAPIResponseBase | undefined> {
+  if (
+    event.type !== 'message' ||
+    event.message.type !== 'text' ||
+    event.source.type !== 'group'
+  ) {
+    return
   }
 
-  const { replyToken } = event;
+  const { replyToken } = event
 
-  const lineGroupId = event.source.groupId;
+  const lineGroupId = event.source.groupId
 
   const getGroup = await getGroupById(lineGroupId)
   const group_id = getGroup ? getGroup.id : null
 
-  if (group_id===null) {
-    return;
+  if (group_id === null) {
+    return
   }
 
   const tables = await prisma.joiner.groupBy({
@@ -30,22 +39,20 @@ export default async function replyTableEvent (event: WebhookEvent): Promise<Mes
         match_end: true
       }
     },
-    by: [
-      'line_user_id'
-    ],
+    by: ['line_user_id'],
     _sum: {
-      point: true,
+      point: true
     },
     _count: {
-      point: true,
+      point: true
     },
     orderBy: {
       _sum: {
-        point: 'desc',
-      },
+        point: 'desc'
+      }
     },
     take: 20
-  });
+  })
 
   const users = await prisma.line_users.findMany({
     select: {
@@ -58,14 +65,14 @@ export default async function replyTableEvent (event: WebhookEvent): Promise<Mes
     }
   })
 
-  const tableMapped:(userPoint)[] = tables.map((table) => {
-    let user = users.find(u => u.id === table.line_user_id);
+  const tableMapped: userPoint[] = tables.map((table) => {
+    let user = users.find((u) => u.id === table.line_user_id)
     return {
-      'id': table.line_user_id,
-      'point': table._sum.point?.toString() ?? '',
-      'match': table._count.point?.toString() ?? '',
-      'name': user?.name,
-      'image': user?.image
+      id: table.line_user_id,
+      point: table._sum.point?.toString() ?? '',
+      match: table._count.point?.toString() ?? '',
+      name: user?.name,
+      image: user?.image
     }
   })
 
@@ -81,19 +88,21 @@ export default async function replyTableEvent (event: WebhookEvent): Promise<Mes
     }
   })
 
-  const lastDateMatch = lastMatchEnd?.updated_at ? convertDateTimeTh(lastMatchEnd.updated_at) : ''
+  const lastDateMatch = lastMatchEnd?.updated_at
+    ? convertDateTimeTh(lastMatchEnd.updated_at)
+    : ''
 
   const pushTable: FlexMessage = {
     type: 'flex',
     altText: 'ตารางอันดับคะแนน',
     contents: tableMessage(tableMapped, lastDateMatch)
   }
-  await client.replyMessage(replyToken, pushTable)
-  .then(() => {
-    console.log('ok');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
+  await client
+    .replyMessage(replyToken, pushTable)
+    .then(() => {
+      console.log('ok')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
