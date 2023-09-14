@@ -1,7 +1,8 @@
 import {
   WebhookEvent,
   TextMessage,
-  MessageAPIResponseBase
+  MessageAPIResponseBase,
+  Profile
 } from '@line/bot-sdk'
 import {
   createLineUser,
@@ -23,9 +24,9 @@ export default async function joinerGameHandler(
   ) {
     return
   }
-  const groupId = event.source.groupId
-  const userId = event.source.userId ? event.source.userId : ''
-  let userProfile = await client.getGroupMemberProfile(groupId, userId)
+  const groupId: string = event.source.groupId
+  const userId: string = event.source.userId ? event.source.userId : ''
+  let userProfile: Profile = await client.getGroupMemberProfile(groupId, userId)
 
   const rexName = event.message.text.match(/ทายผล (\S+) (\S+)/)
   let teamName = rexName?.length ? rexName[1] : null

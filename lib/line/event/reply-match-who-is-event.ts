@@ -9,6 +9,7 @@ import { typeMathWhoIs, typeUserProfile } from '@lib/types'
 import client from '@lib/line/client'
 import matchWhoIsMessage from '@line-message/match-who-is-message'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
+import { joiner } from '@prisma/client'
 
 export default async function replyMatchWhoIsEvent(
   event: WebhookEvent
@@ -58,7 +59,7 @@ export default async function replyMatchWhoIsEvent(
   console.log(match)
   if (match && match.joiner.length !== 0) {
     const joinerTeamHome = match.joiner.filter(
-      (j) => j.team_winner_id === match.team_home_id
+      (j: joiner) => j.team_winner_id === match.team_home_id
     )
     const mapJoinerTeamHome: typeUserProfile[] = joinerTeamHome.map((j) => {
       return {
@@ -69,7 +70,7 @@ export default async function replyMatchWhoIsEvent(
     })
 
     const joinerTeamVisitor = match.joiner.filter(
-      (j) => j.team_winner_id === match.team_visitor_id
+      (j: joiner) => j.team_winner_id === match.team_visitor_id
     )
     const mapJoinerTeamVisitor: typeUserProfile[] = joinerTeamVisitor.map(
       (j) => {
