@@ -16,8 +16,8 @@ Run the follow three commands to clone this repo and install its dependencies:
 
 ```
 git clone https://github.com/tempKaew/soccer-champ.git
-cd video-course-starter-kit
-yarn
+cd soccer-champ
+bun
 ```
 
 -Set up the environment variables:
@@ -32,7 +32,7 @@ Open .env and set the SUPABASE_URL and SUPABASE_KEY variable with the connection
 Create the database schema:
 
 ```
-yarn prisma db push
+bun prisma db push
 ```
 
 ### 3. Line developers Setup
@@ -40,5 +40,5 @@ yarn prisma db push
 ### 4. Start the app
 
 ```
-yarn dev
+bun dev
 ```
