@@ -1,4 +1,4 @@
-import { Logo } from 'component/logo'
+import { Logo } from 'components/logo'
 
 export default function Login() {
   return (

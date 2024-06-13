@@ -14,7 +14,7 @@
 
 Run the follow three commands to clone this repo and install its dependencies:
 
-```
+```cmd
 git clone https://github.com/tempKaew/soccer-champ.git
 cd soccer-champ
 bun
@@ -22,7 +22,7 @@ bun
 
 -Set up the environment variables:
 
-```
+```cmd
 cp .env.example .env
 ```
 
@@ -31,7 +31,7 @@ cp .env.example .env
 Open .env and set the SUPABASE_URL and SUPABASE_KEY variable with the connection string from Supabase
 Create the database schema:
 
-```
+```cmd
 bun prisma db push
 ```
 
@@ -39,6 +39,6 @@ bun prisma db push
 
 ### 4. Start the app
 
-```
+```cmd
 bun dev
 ```

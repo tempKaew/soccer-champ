@@ -18,10 +18,11 @@
     "@emotion/styled": "^11",
     "@line/bot-sdk": "^7.5.2",
     "@next/font": "^13.4.19",
-    "@prisma/client": "^4.6.1",
+    "@prisma/client": "^5.3.0",
     "@supabase/supabase-js": "^2.1.0",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "bun": "^1.0.1",
     "bun-types": "^1.0.1",
     "eslint": "8.27.0",
     "eslint-config-next": "13.4.19",
@@ -32,9 +33,10 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "prisma": "^4.6.1",
     "autoprefixer": "^10.4.13",
+    "daisyui": "3.7.4",
     "postcss": "^8.4.20",
+    "prisma": "^5.3.0",
     "tailwindcss": "^3.2.4"
   }
 }
