@@ -8,8 +8,8 @@ import prisma from '@lib/prisma'
 import { typeMathWhoIs, typeUserProfile } from '@lib/types'
 import client from '@lib/line/client'
 import matchWhoIsMessage from '@line-message/match-who-is-message'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { joiner } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 export default async function replyMatchWhoIsEvent(
   event: WebhookEvent
